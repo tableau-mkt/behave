@@ -41,5 +41,11 @@ Drupal.behave = function(name, options) {
     }
   };
 
+  behavior.detach = function (context, settings, trigger) {
+    if (typeof _this.detach === 'function') {
+      _this.detach.call(this, context, settings, trigger, jQuery);
+    }
+  };
+
   return _this;
 };
