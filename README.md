@@ -12,8 +12,7 @@ Drupal JS behaviors made easy.
         $(this).next('ul').toggle('show');
       });
     }
-  }
-};
+  };
 })(jQuery);
 ```
 
