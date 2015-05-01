@@ -1,0 +1,5 @@
+name = Behave
+description = Drupal.behave JS helper
+core = 7.x
+
+dependencies[] = libraries (>1.0)
