@@ -47,5 +47,26 @@ Drupal.behave = function(name, options) {
     }
   };
 
-  return _this;
+  _this.api = {
+    attach: function (fn) {
+      _this.attach = fn;
+      return _this.api;
+    },
+    detach: function (fn) {
+      _this.detach = fn;
+      return _this.api;
+    },
+    ready: function (fn) {
+      _this.ready = fn;
+      return _this.api;
+    },
+    behavior: function () {
+      return _this;
+    }
+  };
+
+  return _this.api;
 };
+
+// Provide a shorthand, e.g. $b('example').ready(function ($) { ... });
+window.$b = Drupal.behave;

@@ -1,8 +1,8 @@
-# Drupal.behave
+# Drupal.behave ($b for short)
 
 Super sexy Drupal JS behaviors.
 
-## Conventional Way
+## Conventional Way...
 
 ```
 (function ($) {
@@ -14,36 +14,32 @@ Super sexy Drupal JS behaviors.
 })(jQuery);
 ```
 
-## Yeah, Baby, Way
+## Drupal.behave Way! Yeah, Baby!
 
 `jQuery` is also passed in as the third argument. Yeah, baby!
 
 ```
-Drupal.behave('exampleModule').attach = function (context, settings, $) {
+$b('exampleModule').attach(function (context, settings, $) {
   $('.myDOM', context).text('Who throws a shoe?!?');
-}
+});
 ```
 
 Even easier, you can use `.ready` without the context and settings arguments — the function context (`this`) will provide `context` and `settings`. Easier to read and write.
 
 ```
-Drupal.behave('exampleModule').ready = function ($) {
+$b('exampleModule').ready(function ($) {
   $('.myDOM', this.context).text('Who throws a shoe?!?');
-}
+});
 ```
 
-## Detach, too
-
-In the not as common case of a `detach` handler, you'll need a slightly different syntax:
+## Detach, if you want.
 
 ```
-var behavior = Drupal.behave('exampleModule');
-
-behavior.attach = function (context, settings, $) {
-  $('.myDOM', context).text('Who throws a shoe?!?');
-}
-
-behavior.detach = (context, settings, trigger, $) {
-  $('.myDOM', context).text('Oh, behave!'); 
-}
+$b('exampleModule')
+  .attach(function (context, settings, $) {
+    $('.myDOM', context).text('Who throws a shoe?!?');
+  });
+  .detach(function (context, settings, trigger, $) {
+    $('.myDOM', context).text('Oh, behave!'); 
+  })
 ```
