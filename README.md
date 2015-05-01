@@ -1,6 +1,6 @@
 # Drupal.behave
 
-Drupal JS behaviors made easy. 
+Super sexy Drupal JS behaviors.
 
 ## Conventional Way
 
@@ -8,9 +8,7 @@ Drupal JS behaviors made easy.
 (function ($) {
   Drupal.behaviors.exampleModule = {
     attach: function (context, settings) {
-      $('.example', context).click(function () {
-        $(this).next('ul').toggle('show');
-      });
+      $('.myDOM', context).text('Who throws a shoe?!?');
     }
   };
 })(jQuery);
@@ -22,9 +20,7 @@ Drupal JS behaviors made easy.
 
 ```js
 Drupal.behave('exampleModule').attach = function (context, settings, $) {
-  $('.example', context).click(function () {
-    $(this).next('ul').toggle('show');
-  });
+  $('.myDOM', context).text('Who throws a shoe?!?');
 }
 ```
 
@@ -32,8 +28,6 @@ Even easier, you can use `.ready` without the context and settings arguments —
 
 ```js
 Drupal.behave('exampleModule').ready = function ($) {
-  $('.example', this.context).click(function () {
-    $(this).next('ul').toggle('show');
-  });
+  $('.myDOM', this.context).text('Who throws a shoe?!?');
 }
 ```
