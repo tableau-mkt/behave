@@ -1,8 +1,14 @@
-# Drupal.behave ($b for short)
+# Drupal.behave
 
 Super sexy Drupal JS behaviors.
 
-## Conventional Way...
+## API in a nutshell
+
+### Drupal.behave(...) or $b(...) shorthand
+
+It's a super simple, jQuery like, chainable API.
+
+### Before: The Conventional Drupal 7 Way
 
 ```
 (function ($) {
@@ -14,7 +20,7 @@ Super sexy Drupal JS behaviors.
 })(jQuery);
 ```
 
-## Drupal.behave Way! Yeah, Baby!
+### After: Yeah, Baby Way!
 
 `jQuery` is also passed in as the third argument. Yeah, baby!
 
@@ -32,7 +38,7 @@ $b('exampleModule').ready(function ($) {
 });
 ```
 
-## Detach, if you want.
+### Detach, if you want.
 
 ```
 $b('exampleModule')
