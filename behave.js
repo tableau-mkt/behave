@@ -75,7 +75,7 @@ Drupal.behave = function(name, options) {
       _this.ready = fn;
       return _this.api;
     },
-    behavior: function () {
+    behave: function () {
       return _this;
     }
   };

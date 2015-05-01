@@ -49,3 +49,11 @@ $b('exampleModule')
     $('.myDOM', context).text('Oh, behave!'); 
   })
 ```
+
+### Low-level access to the behave object
+
+If you really want to, you can grab the behave object.
+
+```
+var behave = $b('exampleModule').behave();
+```
