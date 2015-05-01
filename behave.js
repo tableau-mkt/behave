@@ -30,7 +30,7 @@ Drupal.behave = function(name, options) {
     if (_this.options.only && context !== _this.options.only) {
       return;
     }
-    if (!hasAttach || !hasReady) {
+    if (!hasAttach && !hasReady) {
       throw 'attach or ready property required (as type Function)';
     }
     if (hasAttach) {
