@@ -15,7 +15,7 @@ Drupal.behave = function(name, options) {
   Drupal.behaviors[name] = Drupal.behaviors[name] || {};
   behavior = Drupal.behaviors[name];
   behavior._behave = {
-    options: _.extend({}, options, defaults)
+    options: jQuery.extend({}, options, defaults)
   };
   _this = behavior._behave;
 
@@ -24,13 +24,21 @@ Drupal.behave = function(name, options) {
   }
 
   behavior.attach = function (context, settings) {
+    var hasAttach = typeof _this.attach === 'function',
+        hasReady = typeof _this.attach === 'function';
+
     if (_this.options.only && context !== _this.options.only) {
       return;
     }
-    if (!_this.attach || typeof _this.attach !== 'function') {
-      throw 'attach function required';
+    if (!hasAttach || !hasReady) {
+      throw 'attach or ready property required (as type Function)';
     }
-    _this.attach.call({context: context, settings: settings}, jQuery);
+    if (hasAttach) {
+      _this.attach.call(context, settings, jQuery);
+    }
+    if (hasReady) {
+      _this.ready.call({context: context, settings: settings}, jQuery);
+    }
   };
 
   return _this;
