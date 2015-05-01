@@ -25,7 +25,7 @@ Drupal.behave = function(name, options) {
 
   behavior.attach = function (context, settings) {
     var hasAttach = typeof _this.attach === 'function',
-        hasReady = typeof _this.attach === 'function';
+        hasReady = typeof _this.ready === 'function';
 
     if (_this.options.only && context !== _this.options.only) {
       return;
