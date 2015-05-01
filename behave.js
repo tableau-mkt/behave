@@ -34,7 +34,7 @@ Drupal.behave = function(name, options) {
       throw 'attach or ready property required (as type Function)';
     }
     if (hasAttach) {
-      _this.attach.call(context, settings, jQuery);
+      _this.attach.call(this, context, settings, jQuery);
     }
     if (hasReady) {
       _this.ready.call({context: context, settings: settings}, jQuery);
