@@ -25,7 +25,7 @@ It's a super simple, jQuery like, chainable API.
 `jQuery` is also passed in as the third argument. Yeah, baby!
 
 ```
-$b('exampleModule').attach(function (context, settings, $) {
+Drupal.behave('exampleModule').attach(function (context, settings, $) {
   $('.myDOM', context).text('Who throws a shoe?!?');
 });
 ```
@@ -33,7 +33,7 @@ $b('exampleModule').attach(function (context, settings, $) {
 Even easier, you can use `.ready` without the context and settings arguments — the function context (`this`) will provide `context` and `settings`. Easier to read and write.
 
 ```
-$b('exampleModule').ready(function ($) {
+Drupal.behave('exampleModule').ready(function ($) {
   $('.myDOM', this.context).text('Who throws a shoe?!?');
 });
 ```
@@ -41,7 +41,7 @@ $b('exampleModule').ready(function ($) {
 ### Detach, if you want.
 
 ```
-$b('exampleModule')
+Drupal.behave('exampleModule')
   .attach(function (context, settings, $) {
     $('.myDOM', context).text('Who throws a shoe?!?');
   });
@@ -55,5 +55,5 @@ $b('exampleModule')
 If you really want to, you can grab the behave object.
 
 ```
-var behave = $b('exampleModule').behave();
+var behave = Drupal.behave('exampleModule').behave();
 ```
