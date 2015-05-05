@@ -10,21 +10,27 @@ Drupal.behave = function(name, options) {
         only: document
       },
       behavior,
-      _this;
+      behave,
+      _behave;
 
   // Create the behavior if it doesn't exist, and save a shorter reference.
   Drupal.behaviors[name] = Drupal.behaviors[name] || {};
   behavior = Drupal.behaviors[name];
 
-  // Add a "private" property to the Drupal behavior which will store behave
-  // options, chainable api, attach, ready, and detach properties.
-  behavior._behave = {
-    options: jQuery.extend({}, options, defaults)
+  // Add the behave property to the Drupal behavior which will store behave
+  // options, chainable api, attach, ready, and detach properties. Note: We will
+  // store all behave module properties within the _behave namespace, so that
+  // users can add whatever properties they want on the behave object, without
+  // worrying about naming collisions.
+  behavior.behave = {
+    _behave: {
+      options: jQuery.extend({}, options, defaults)
+    }
   };
 
-  // Save a reference to the behave context. Let's call it "_this" since it's
-  // Drupal.behave's core object.
-  _this = behavior._behave;
+  // Save a reference to the parent behave context, and the _behave module context.
+  behave = behavior.behave;
+  _behave = behave._behave;
 
   // Ensure name argument is provided.
   if (!name || typeof name !== 'string') {
@@ -33,11 +39,11 @@ Drupal.behave = function(name, options) {
 
   // The attach wrapper function. Called by drupal.js.
   behavior.attach = function (context, settings) {
-    var hasAttach = typeof _this.attach === 'function',
-        hasReady = typeof _this.ready === 'function';
+    var hasAttach = typeof _behave.attach === 'function',
+        hasReady = typeof _behave.ready === 'function';
 
-    // Here, we'll check options.only against the behaviors context.
-    if (_this.options.only && context !== _this.options.only) {
+    // Here, we'll check _options.only against the behaviors context.
+    if (_behave.options.only && context !== _behave.options.only) {
       return;
     }
     // Ensure attach or ready function exists on behave object.
@@ -46,42 +52,42 @@ Drupal.behave = function(name, options) {
     }
     // Call the custom behave attach function.
     if (hasAttach) {
-      _this.attach.call(this, context, settings, jQuery);
+      _behave.attach.call(this, context, settings, jQuery, behave);
     }
     // Call the custom behave ready function.
     if (hasReady) {
-      _this.ready.call({context: context, settings: settings}, jQuery);
+      _behave.ready.call({context: context, settings: settings, behave: behave}, jQuery);
     }
   };
 
   // The detach wrapper function. Called by drupal.js.
   behavior.detach = function (context, settings, trigger) {
-    if (typeof _this.detach === 'function') {
-      _this.detach.call(this, context, settings, trigger, jQuery);
+    if (typeof _behave.detach === 'function') {
+      _behave.detach.call(this, context, settings, trigger, jQuery);
     }
   };
 
   // Define our chainable API.
-  _this.api = {
+  _behave.api = {
     attach: function (fn) {
-      _this.attach = fn;
-      return _this.api;
+      _behave.attach = fn;
+      return behave.api;
     },
     detach: function (fn) {
-      _this.detach = fn;
-      return _this.api;
+      _behave.detach = fn;
+      return behave.api;
     },
     ready: function (fn) {
-      _this.ready = fn;
-      return _this.api;
+      _behave.ready = fn;
+      return behave.api;
     },
     behave: function () {
-      return _this;
+      return behave;
     }
   };
 
   // Return our chainable API.
-  return _this.api;
+  return _behave.api;
 };
 
 // Provide a shorthand, e.g. $b('example').ready(function ($) { ... });
