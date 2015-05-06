@@ -37,7 +37,7 @@ Drupal.behave('exampleModule').ready(function ($) {
   $('.myDOM', this.context).text('Who throws a shoe?!?');
 });
 ```
-<sup>1</sup>The `settings` property on the function context refers to `Drupal.settings.exampleModule` — not `Drupal.settings`, like you may be used to. This is for convenience. Defaults to an empty Object.
+<sup>1</sup>The `settings` property on the function context refers to `Drupal.settings`.
 
 <sup>2</sup>The `behavior` property on the function context refers to `Drupal.behaviors.exampleModule` in this case.
 

@@ -38,8 +38,6 @@ Drupal.behave = function(name, options) {
 
   // The attach wrapper function. Called by drupal.js.
   behavior.attach = function (context, settings) {
-    // Provide the settings for this behavior.
-    settings = settings[name] || {};
     // Here, we'll check _options.only against the behaviors context.
     if (_behave.options.only && context !== _behave.options.only) {
       return;
@@ -56,8 +54,6 @@ Drupal.behave = function(name, options) {
 
   // The detach wrapper function. Called by drupal.js.
   behavior.detach = function (context, settings, trigger) {
-    // Provide the settings for this behavior.
-    settings = settings[name] || {};
     // Call the custom behave detach function if it exists.
     if (typeof _behave.detach === 'function') {
       _behave.detach.call(this, context, settings, trigger, jQuery);
