@@ -16,9 +16,12 @@ Drupal.behave = function(name, options) {
   Drupal.behaviors[name] = Drupal.behaviors[name] || {};
   behavior = Drupal.behaviors[name];
 
-  // Add the _behave property to the Drupal behavior which will store behave
-  // options, chainable api, attach, ready, and detach properties. Note: We will
-  // store all behave module properties within the _behave namespace, so that
+  // Save the name of the behavior.
+  behavior.name = name;
+
+  // Add the behave property to the Drupal behavior which will store behave
+  // options, chainable API, attach, ready, and detach properties. Note: We will
+  // store all behave module properties within the_behave namespace, so that
   // users can add whatever properties they want on the behave object, without
   // worrying about naming collisions.
   behavior._behave = {
@@ -35,6 +38,8 @@ Drupal.behave = function(name, options) {
 
   // The attach wrapper function. Called by drupal.js.
   behavior.attach = function (context, settings) {
+    // Provide the settings for this behavior.
+    settings = settings[name] || {};
     // Here, we'll check _options.only against the behaviors context.
     if (_behave.options.only && context !== _behave.options.only) {
       return;
@@ -51,6 +56,9 @@ Drupal.behave = function(name, options) {
 
   // The detach wrapper function. Called by drupal.js.
   behavior.detach = function (context, settings, trigger) {
+    // Provide the settings for this behavior.
+    settings = settings[name] || {};
+    // Call the custom behave detach function if it exists.
     if (typeof _behave.detach === 'function') {
       _behave.detach.call(this, context, settings, trigger, jQuery);
     }

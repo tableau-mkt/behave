@@ -30,15 +30,16 @@ Drupal.behave('exampleModule').attach(function (context, settings, $) {
 });
 ```
 
-Even easier, you can use `.ready` without the context and settings arguments — the function context (`this`) will provide `context`, `settings`, and `behavior`<sup>1</sup>. Easier to read and write.
+Even easier, you can use `.ready` without the context and settings arguments — the function context (`this`) will provide `context`, `settings`<sup>1</sup>, and `behavior`<sup>2</sup>. Easier to read and write.
 
 ```
 Drupal.behave('exampleModule').ready(function ($) {
   $('.myDOM', this.context).text('Who throws a shoe?!?');
 });
 ```
+<sup>1</sup>The `settings` property on the function context refers to `Drupal.settings.exampleModule` — not `Drupal.settings`, like you may be used to. This is for convenience. Defaults to an empty Object.
 
-<sup>1</sup>The `behavior` property on the function context refers to `Drupal.behaviors.exampleModule` in this case.
+<sup>2</sup>The `behavior` property on the function context refers to `Drupal.behaviors.exampleModule` in this case.
 
 ### Detach, if you want.
 
