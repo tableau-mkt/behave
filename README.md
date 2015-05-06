@@ -4,7 +4,7 @@ Super sexy Drupal JS behaviors.
 
 ## API in a nutshell
 
-### Drupal.behave(...) or $b(...) shorthand
+### Drupal.behave(...)
 
 It's a super simple, jQuery like, chainable API.
 
