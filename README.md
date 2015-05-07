@@ -1,4 +1,4 @@
-# Drupal.behave
+# Drupal.behave ![build status](https://travis-ci.org/tableau-mkt/behave.svg?branch=7.x-1.x)
 
 Super sexy Drupal JS behaviors.
 
