@@ -5,6 +5,12 @@
  * @param {Object} options
  *   options.only - the only context to run this behavior in (false to run in all contexts)
  */
+
+// For safety, and QUnit testing.
+var Drupal = window.Drupal || {settings: {}, behaviors: {}, locale: {}};
+
+(function($) {
+
 Drupal.behave = function(name, options) {
   var defaults = {
         only: document
@@ -25,7 +31,7 @@ Drupal.behave = function(name, options) {
   // users can add whatever properties they want on the behave object, without
   // worrying about naming collisions.
   behavior._behave = {
-    options: jQuery.extend({}, options, defaults)
+    options: $.extend({}, options, defaults)
   };
 
   // Save a reference to the behave context.
@@ -44,11 +50,11 @@ Drupal.behave = function(name, options) {
     }
     // Call the custom behave attach function if it exists.
     if (typeof _behave.attach === 'function') {
-      _behave.attach.call(this, context, settings, jQuery, behavior);
+      _behave.attach.call(this, context, settings, $, behavior);
     }
     // Call the custom behave ready function if it exists.
     if (typeof _behave.ready === 'function') {
-      _behave.ready.call({context: context, settings: settings, behavior: behavior}, jQuery);
+      _behave.ready.call({context: context, settings: settings, behavior: behavior}, $);
     }
   };
 
@@ -56,7 +62,7 @@ Drupal.behave = function(name, options) {
   behavior.detach = function (context, settings, trigger) {
     // Call the custom behave detach function if it exists.
     if (typeof _behave.detach === 'function') {
-      _behave.detach.call(this, context, settings, trigger, jQuery);
+      _behave.detach.call(this, context, settings, trigger, $);
     }
   };
 
@@ -81,7 +87,7 @@ Drupal.behave = function(name, options) {
       return behavior;
     },
     extend: function (object) {
-      jQuery.extend(behavior, object);
+      $.extend(behavior, object);
       return _behave.api;
     }
   };
@@ -89,3 +95,5 @@ Drupal.behave = function(name, options) {
   // Return our chainable API.
   return _behave.api;
 };
+
+}(jQuery));
