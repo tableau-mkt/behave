@@ -17,16 +17,15 @@ module.exports = (grunt) ->
 
     # Task configuration.
     clean:
-      files: ['dist']
+      files: ['<%= concat.dist.dest %>']
 
     concat:
       options:
         banner: '<%= banner %>'
-        stripBanners: true
 
       dist:
         src: ['src/<%= pkg.name %>.js']
-        dest: 'dist/<%= pkg.name %>.js'
+        dest: 'js/<%= pkg.name %>.js'
 
     uglify:
       options:
@@ -34,7 +33,7 @@ module.exports = (grunt) ->
 
       dist:
         src: '<%= concat.dist.dest %>'
-        dest: 'dist/<%= pkg.name %>.min.js'
+        dest: 'js/<%= pkg.name %>.min.js'
 
     qunit:
       files: ['test/**/*.html']
@@ -77,9 +76,9 @@ module.exports = (grunt) ->
   grunt.registerTask 'default', [
     'jshint'
     'qunit'
-    'clean'
     'concat'
     'uglify'
+    'clean'
   ]
 
   # Default task.

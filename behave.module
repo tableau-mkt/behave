@@ -10,7 +10,7 @@
  */
 function behave_preprocess_page(&$variables) {
   drupal_add_js(
-    drupal_get_path('module', 'behave') . '/dist/behave.min.js', array(
+    drupal_get_path('module', 'behave') . '/js/behave.min.js', array(
     'type' => 'file',
     'group' => JS_LIBRARY,
     'weight' => 0,
