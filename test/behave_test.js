@@ -63,7 +63,7 @@ test('API is chainable', function (assert) {
     });
 });
 
-test('attach, ready called on DOM ready with correct arguments', function (assert) {
+test('attach, ready, detach called with correct arguments', function (assert) {
   var behave = Drupal.behave('baz'),
       isCalled = {};
 
@@ -73,6 +73,9 @@ test('attach, ready called on DOM ready with correct arguments', function (asser
     })
     .ready(function () {
       isCalled.ready = {arguments: arguments, this: this};
+    })
+    .detach(function () {
+      isCalled.detach = {arguments: arguments, this: this};
     });
 
   // Mock call Drupal.attachBehaviors
@@ -80,14 +83,26 @@ test('attach, ready called on DOM ready with correct arguments', function (asser
 
   assert.ok(isCalled.attach, 'attach is called');
   assert.ok(isCalled.ready, 'ready is called');
-  assert.strictEqual(isCalled.attach.arguments[0], document, '.attach function has document context');
+
+  assert.strictEqual(isCalled.attach.arguments[0], document, '.attach function has context, document');
   assert.strictEqual(isCalled.attach.arguments[1].foo, true, '.attach function has settings.foo');
   assert.strictEqual(isCalled.attach.arguments[1].bar, false, '.attach function has settings.bar');
-  assert.strictEqual(isCalled.attach.arguments[2], $, '.attach function has third argument jQuery');
-  assert.strictEqual(isCalled.ready.arguments[0], $, '.ready function has first argument jQuery');
+  assert.strictEqual(isCalled.attach.arguments[2], $, '.attach function has third argument, jQuery');
+  assert.strictEqual(isCalled.ready.arguments[0], $, '.ready function has first argument, jQuery');
   assert.strictEqual(isCalled.ready.this.context, document, '.ready function has this.context document');
   assert.strictEqual(isCalled.ready.this.settings.foo, true, '.ready function has this.settings.foo');
   assert.strictEqual(isCalled.ready.this.settings.bar, false, '.ready function has this.settings.bar');
+
+  // Mock call Drupal.detachBehaviors
+  Drupal.behaviors.baz.detach(document, {foo: true, bar: false}, 'unload');
+
+  assert.ok(isCalled.detach, 'detach is called');
+
+  assert.strictEqual(isCalled.detach.arguments[0], document, '.detach function has context, document');
+  assert.strictEqual(isCalled.detach.arguments[1].foo, true, '.detach function has settings.foo');
+  assert.strictEqual(isCalled.detach.arguments[1].bar, false, '.detach function has settings.bar');
+  assert.strictEqual(isCalled.detach.arguments[2], 'unload', '.detach function has third argument, unload');
+  assert.strictEqual(isCalled.detach.arguments[3], $, '.detach function has fourth argument, jQuery');
 });
 
 }(jQuery));
