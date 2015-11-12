@@ -31,7 +31,7 @@ Drupal.behave = function(name, options) {
   // users can add whatever properties they want on the behave object, without
   // worrying about naming collisions.
   behavior._behave = {
-    options: $.extend({}, options, defaults)
+    options: $.extend({}, defaults, options)
   };
 
   // Save a reference to the behave context.
