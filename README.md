@@ -4,7 +4,7 @@ Super sexy Drupal JS behaviors.
 
 ## API in a nutshell
 
-### Drupal.behave(...)
+### Drupal.behave(..., options)
 
 It's a super simple, jQuery like, chainable API.
 
@@ -72,4 +72,19 @@ If you really want to, you can grab the behave object.
 
 ```
 var behave = Drupal.behave('exampleModule').behave();
+```
+
+### Firing context, and AJAX
+
+An important caveat to using behave is that the majority use case is considered—your behave attach/ready won't be called for AJAX by default. If you want to attach to AJAX as well, use `{only: false}` option.
+
+
+```
+// By including `only: false` option, we will run in all contexts (including AJAX).
+Drupal.behave('exampleModule', {only: false})
+  .extend({
+    myFunction: function myFunction() {
+
+    }
+  });
 ```
